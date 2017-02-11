@@ -42,7 +42,8 @@ loadDB()
 def index():
     countries = {c: [(cData[c]['earth'].keys() if 'earth' in cData[c] else None),
                      (cData[c]['monuments'].keys() if 'monuments' in cData[c] else None),
-                     (cData[c]['africa'].keys() if 'africa' in cData[c] else None)]
+                     (cData[c]['africa'].keys() if 'africa' in cData[c] else None),
+                     (cData[c]['public_art'].keys() if 'public_art' in cData[c] else None)]]
             for c in cData}
     return render_template('mainpage.html', title=u'Wiki Loves Competitions Tools', menu=menu,
             data=mainData, countries=countries)
@@ -62,6 +63,7 @@ def logpage():
 @app.route('/monuments', defaults={'name': 'monuments'})
 @app.route('/earth', defaults={'name': 'earth'})
 @app.route('/africa', defaults={'name': 'africa'})
+@app.route('/public_art', defaults={'name': 'public_art'})
 def event_main(name):
     if not db:
         return index()
@@ -77,6 +79,7 @@ def event_main(name):
 @app.route('/monuments/20<year>', defaults={'name': 'monuments'})
 @app.route('/earth/20<year>', defaults={'name': 'earth'})
 @app.route('/africa/20<year>', defaults={'name': 'africa'})
+@app.route('/public_art/20<year>', defaults={'name': 'public_art'})
 def event_year(name, year):
     loadDB()
     if not db:
@@ -94,6 +97,7 @@ def event_year(name, year):
 @app.route('/monuments/20<year>/<country>', defaults={'name': 'monuments'})
 @app.route('/earth/20<year>/<country>', defaults={'name': 'earth'})
 @app.route('/africa/20<year>/<country>', defaults={'name': 'africa'})
+@app.route('/public_art/20<year>/<country>', defaults={'name': 'public_art'})
 def users(name, year, country):
     if not db:
         return index()

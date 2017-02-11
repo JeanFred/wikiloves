@@ -45,7 +45,7 @@ def reData(txt, year):
     Parser para linha da configuração
     """
     m = re.search(ur'''
-        \s*wl\["(?P<event>earth|monuments|africa)"\]\[(?P<year>20\d\d)]\ ?=\ ?\{|
+        \s*wl\["(?P<event>earth|monuments|africa|public_art)"\]\[(?P<year>20\d\d)]\ ?=\ ?\{|
         \s*\["(?P<country>[-a-z]+)"\]\ =\ \{\["start"\]\ =\ (?P<start>%s\d{10}),\ \["end"\]\ =\ (?P<end>%s\d\d{10})\}
         ''' % (year, str(year)[:3]), txt, re.X)
     return m and m.groupdict()
