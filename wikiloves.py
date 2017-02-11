@@ -68,13 +68,21 @@ def event_main(name):
     if not db:
         return index()
     if name in mainData:
-        eventName = u'Wiki Loves %s' % name.capitalize()
+        eventName = get_event_name(name)
         eventData = {name: {y: v for y, v in mainData[name].iteritems()}}
         eventData.update(countries = {c: cData[c][e] for c in cData
             for e in cData[c] if e == name})
         return render_template('eventmain.html', title=eventName, menu=menu, name=name, data=eventData)
     else:
         return render_template('page_not_found.html', title=u'Event not found', menu=menu)
+
+def get_event_name(name):
+    """
+    Generate a name from the label.
+    
+    Returns title case with underscore replaced.
+    """
+    return u'Wiki Loves %s' % name.replace('_', ' ').title()
 
 @app.route('/monuments/20<year>', defaults={'name': 'monuments'})
 @app.route('/earth/20<year>', defaults={'name': 'earth'})
@@ -87,7 +95,7 @@ def event_year(name, year):
     year = '20' + year
     event = name + year
     if event in db:
-        eventName = u'Wiki Loves %s %s' % (name.capitalize(), year)
+        eventName = u'%s %s' % (get_event_name(name), year)
         eventData = {c: {d: db[event][c][d] for d in db[event][c] if d != 'users'} for c in db[event]}
         return render_template('event.html', title=eventName, menu=menu, name=name, year=year,
                                data=eventData, rickshaw=True)
@@ -104,7 +112,7 @@ def users(name, year, country):
     year = '20' + year
     event = name + year
     if event in db and country in db[event]:
-        eventName = u'Wiki Loves %s %s in %s' % (name.capitalize(), year, country)
+        eventName = u'%s %s in %s' % (get_event_name(name), year, country)
         eventUsers = sorted(db[event][country]['users'].items(), key=lambda i: (i[1]['count'], i[0]), reverse=True)
         return render_template('users.html', title=eventName, menu=menu, name=name, year=year,
                                country=country, data=eventUsers, starttime=db[event][country]['start'])
@@ -128,8 +136,8 @@ def images_page():
     if not imgs:
         return render_template('images_not_found.html', menu=menu, title=u'Images not found')
     backto = [args['event'], args['year']] + ([args['country']] if 'user' in args else [])
-    title = u'Images of %sWiki Loves %s %s in %s' % (args['user'] + u' in ' if 'user' in args else u'',
-        args['event'].capitalize(), args['year'], args['country'])
+    title = u'Images of %s%s %s in %s' % (args['user'] + u' in ' if 'user' in args else u'',
+        get_event_name(args['event']), args['year'], args['country'])
     return render_template('images.html', menu=menu, title=title, images=imgs, backto=backto)
 
 @app.route('/db.json')

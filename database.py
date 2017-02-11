@@ -110,7 +110,7 @@ def getData(name, data):
     Coleta dados do banco de dados e processa
     """
     category = u'Images_from_Wiki_Loves_%s_%s_in_' % \
-            (name[0:-4].capitalize(), name[-4:])
+            (name[0:-4].title(), name[-4:])
 
     starttime = min(data[c]['start'] for c in data if 'start' in data[c])
     endtime = max(data[c]['end'] for c in data if 'end' in data[c])
