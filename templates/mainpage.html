@@ -27,7 +27,7 @@ var data = [
 ] %}
 
 {% for name, bg_color_1, bg_color_2 in contests %}
-<h2>Wiki Loves {{ name|capitalize }}</h2><hr/>
+<h2>Wiki Loves {{ name|replace("_", " ")|title }}</h2><hr/>
 {% include "contest_logo.html" %}
 <div id="graph-{{ name }}"></div><br/>
 <table style="text-align:center; border-collapse:collapse; min-width:500px; margin-top:8px">
@@ -55,7 +55,7 @@ var data = [
     <tr>
         <th>Country</th>
         {% for name, bg_color_1, _ in contests %}
-        <th style="background-color:{{ bg_color_1 }}; color:white">Wiki Loves {{ name|capitalize }}</th>
+        <th style="background-color:{{ bg_color_1 }}; color:white">Wiki Loves {{ name|replace("_", " ")|title }}</th>
         {% endfor %}
     </tr>
     {%- for c, events in countries|dictsort %}

@@ -15,9 +15,9 @@
 <h1>{{ title }}</h1>
 <hr/> Tool Labs – Tools for Wiki Loves Photo Competitions <br/>
 {%- if backto|length == 3 %}
-<p><a href="{{ url_for('index') }}{{ backto|join('/') }}">Back to Wiki Loves {{ backto[0]|capitalize }} {{ backto[1] }} {{ backto[2] }}</a></p>
+<p><a href="{{ url_for('index') }}{{ backto|join('/') }}">Back to Wiki Loves {{ backto[0]|replace("_", " ")|title }} {{ backto[1] }} {{ backto[2] }}</a></p>
 {%- else %}
-<p><a href="{{ url_for('index') }}{{ backto|join('/') }}">Back to Wiki Loves {{ backto[0]|capitalize }} {{ backto[1] }}</a></p>
+<p><a href="{{ url_for('index') }}{{ backto|join('/') }}">Back to Wiki Loves {{ backto[0]|replace("_", " ")|title }} {{ backto[1] }}</a></p>
 {% endif %}
 <br/>
 <div style="font-size:1.8em; font-weight:bold; color:gray; text-align:center">

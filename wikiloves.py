@@ -24,7 +24,7 @@ def loadDB():
         db = None
     menu = {name: sorted(e[-4:] for e in db if e[:-4] == name) for name in set(e[:-4] for e in db)}
     mainData = {name: {e[-4:]:
-        {'count': sum(db[e][c]['count'] for c in db[e]), 
+        {'count': sum(db[e][c]['count'] for c in db[e]),
          'usercount': sum(db[e][c]['usercount'] for c in db[e]),
          'userreg': sum(db[e][c]['userreg'] for c in db[e]),
          'usage': sum(db[e][c]['usage'] for c in db[e])}
@@ -79,7 +79,7 @@ def event_main(name):
 def get_event_name(name):
     """
     Generate a name from the label.
-    
+
     Returns title case with underscore replaced.
     """
     return u'Wiki Loves %s' % name.replace('_', ' ').title()

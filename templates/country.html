@@ -18,7 +18,7 @@ var data = [
 {% endblock %}
 {% block content %}
 {% for name, series in data|dictsort %}
-<h2>Wiki Loves {{ name|capitalize }}</h2><hr/>
+<h2>Wiki Loves {{ name|replace("_", " ")|title }}</h2><hr/>
 {% include "contest_logo.html" %}
 <div id="graph-{{ name }}">
 </div>

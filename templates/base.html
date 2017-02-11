@@ -25,7 +25,7 @@
                 <div id="menu-content">
 <div id="menu-item"><a href="{{ url_for('.index') }}">Main page</a></div>
 {%- for name, years in menu.items() %}
-<div id="menu-item"><a href="{{ url_for('.index') }}{{ name }}">WL {{ name|capitalize }}</a></div>
+<div id="menu-item"><a href="{{ url_for('.index') }}{{ name }}">WL {{ name|replace("_", " ")|title }}</a></div>
 {%- for year in years %}
 <div id="menu-item"><a href="{{ url_for('.index') }}{{name}}/{{ year }}"> &nbsp; {{ year }}</a></div>
 {%- endfor %}
