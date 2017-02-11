@@ -43,7 +43,7 @@ def index():
     countries = {c: [(cData[c]['earth'].keys() if 'earth' in cData[c] else None),
                      (cData[c]['monuments'].keys() if 'monuments' in cData[c] else None),
                      (cData[c]['africa'].keys() if 'africa' in cData[c] else None),
-                     (cData[c]['public_art'].keys() if 'public_art' in cData[c] else None)]]
+                     (cData[c]['public_art'].keys() if 'public_art' in cData[c] else None)]
             for c in cData}
     return render_template('mainpage.html', title=u'Wiki Loves Competitions Tools', menu=menu,
             data=mainData, countries=countries)
