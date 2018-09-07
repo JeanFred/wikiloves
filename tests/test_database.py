@@ -74,25 +74,28 @@ class TestGetDataMixin(unittest.TestCase):
         patcher = mock.patch('database.get_data_for_category', autospec=True)
         self.mock_get_data_for_category = patcher.start()
         self.mock_get_data_for_category.return_value = (
-            (20140529121626, False, u'Alice', 20140528235032),
             (20140523121626, False, u'Bob', 20130523235032),
+            (20140523121626, False, u'Alice', 20140528235032),
+            (20140529121626, False, u'Alice', 20140528235032),
+            (20140530121626, False, u'Alice', 20140528235032),
         )
         self.addCleanup(patcher.stop)
 
         self.expected_timestamp_data = defaultdict(int)
         self.expected_timestamp_data.update({
-            '20140523': 1,
+            '20140523': 2,
             '20140529': 1,
+            '20140530': 1
         })
 
-        self.images_count = 2
+        self.images_count = 4
         self.usercount = 2
         self.userreg = 1
         self.usage = 0
 
         self.user_data = {
             u'Alice': {
-                'count': 1,
+                'count': 3,
                 'reg': 20140528235032,
                 'usage': 0
             },
