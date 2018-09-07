@@ -235,6 +235,37 @@ class TestProcessData(TestProcessDataMixin):
         }
         self.assertEqual(result, expected)
 
+    def test_get_edition_data(self):
+        result = functions.get_edition_data(self.data, 'monuments2016')
+        expected = {
+            u'Turkey': {
+                u'count': 5,
+                u'category': u'Images_from_Wiki_Loves_Monuments_2016_in_Turkey',
+                u'end': 20160930205959,
+                u'start': 20160831210000,
+                u'userreg': 0,
+                u'usage': 0,
+                u'data': {
+                    u'20160903': 5,
+                },
+                u'usercount': 1,
+            },
+            u'Panama': {
+                u'count': 26,
+                u'category': u'Images_from_Wiki_Loves_Monuments_2016_in_Panama',
+                u'end': 20161001045959,
+                u'start': 20160901050000,
+                u'userreg': 2,
+                u'usage': 0,
+                u'data': {
+                    u'20160902': 4,
+                    u'20160903': 22,
+                },
+                u'usercount': 2,
+            }
+        }
+        self.assertEqual(result, expected)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -13,6 +13,7 @@ import images
 from functions import (
     get_country_data,
     get_country_summary,
+    get_edition_data,
     get_event_name,
     get_events_data,
     get_menu
@@ -90,7 +91,7 @@ def event_year(name, year):
     event = name + year
     if event in db:
         eventName = u'%s %s' % (get_event_name(name), year)
-        eventData = {c: {d: db[event][c][d] for d in db[event][c] if d != 'users'} for c in db[event]}
+        eventData = get_edition_data(db, event)
         return render_template('event.html', title=eventName, menu=menu, name=name, year=year,
                                data=eventData, rickshaw=True)
     else:
