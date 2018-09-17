@@ -19,6 +19,18 @@ def get_country_data(db):
     return country_data
 
 
+def get_daily_data_for_country(db):
+    country_data = {}
+    for edition in db:
+        scope = edition[:-4]
+        year = edition[-4:]
+        for country in db[edition]:
+            country_data.setdefault(country, {}).setdefault(scope, {}).update({
+                year: db[edition][country]['data']
+            })
+    return country_data
+
+
 def get_events_data(db):
     return {
         name: {

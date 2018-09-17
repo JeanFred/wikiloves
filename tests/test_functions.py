@@ -286,6 +286,84 @@ class TestProcessData(TestProcessDataMixin):
         ]
         self.assertEqual(result, expected)
 
+    def test_get_daily_data_for_country(self):
+        result = functions.get_daily_data_for_country(self.data)
+        expected =  {
+            u'Benin': {
+                u'africa': {
+                    u'2014': {
+                        u'20160903': {
+                            u'newbie_joiners': 0,
+                            u'joiners': 1,
+                            u'images': 2
+                        }
+                    }
+                }
+            },
+            u'Turkey': {
+                u'monuments': {
+                    u'2016': {
+                        u'20160903': {
+                            u'newbie_joiners': 0,
+                            u'joiners': 1,
+                            u'images': 5
+                        }
+                    }
+                },
+                u'earth': {
+                    u'2015': {
+                        u'20160903': {
+                            u'newbie_joiners': 0,
+                            u'joiners': 1,
+                            u'images': 5
+                            }
+                        }
+                    }
+                },
+            u'Austria': {
+                u'public_art': {
+                    u'2013': {
+                        u'20160903': {
+                            u'newbie_joiners': 0,
+                            u'joiners': 1,
+                            u'images': 2
+                        }
+                    }
+                }
+            },
+            u'Panama': {
+                u'monuments': {
+                    u'2016': {
+                        u'20160903': {
+                            u'newbie_joiners': 1,
+                            u'joiners': 1,
+                            u'images': 22
+                        },
+                        u'20160902': {
+                            u'newbie_joiners': 1,
+                            u'joiners': 1,
+                            u'images': 4
+                        }
+                    }
+                },
+                u'earth': {
+                    u'2015': {
+                        u'20160903': {
+                            u'newbie_joiners': 1,
+                            u'joiners': 1,
+                            u'images': 22
+                        },
+                        u'20160902': {
+                            u'newbie_joiners': 1,
+                            u'joiners': 1,
+                            u'images': 4
+                        }
+                    }
+                }
+            }
+        }
+        self.assertEqual(result, expected)
+
 
 if __name__ == "__main__":
     unittest.main()
