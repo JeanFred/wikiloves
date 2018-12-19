@@ -9,7 +9,7 @@ nose = "*"
 
 [packages]
 Flask = "*"
-PyMySQL = "==0.7.11"
+PyMySQL = "==0.9.3"
 
 [requires]
 python_version = "2.7"
