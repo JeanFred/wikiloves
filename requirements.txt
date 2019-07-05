@@ -1,8 +1,8 @@
--i https://pypi.org/simple
-click==6.7
-flask==1.0.2
-itsdangerous==0.24
-jinja2==2.10
-markupsafe==1.0
+-i https://pypi.org/simple/
+click==7.0
+flask==1.1.0
+itsdangerous==1.1.0
+jinja2==2.10.1
+markupsafe==1.1.1
 pymysql==0.7.11
-werkzeug==0.14.1
+werkzeug==0.15.4
