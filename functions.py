@@ -137,4 +137,5 @@ special_exceptions = {
     ("Science", "2013", "Estonia"): 'Images_from_Teadusfoto_2013',
     ("Science", "2012", "Estonia"): 'Images_from_Teadusfoto_2012',
     ("Science", "2011", "Estonia"): 'Images_from_Teadusfoto_2011',
+    ("Science", "2015", "Greece"): 'Images from European Science Photo Competition 2015 in Greece',
 }
