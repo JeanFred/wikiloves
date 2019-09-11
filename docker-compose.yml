@@ -12,3 +12,15 @@ services:
      - ./conf/db.dump.json:/code/db.json
     environment:
       - LOCAL_ENVIRONMENT=True
+      - DB_HOST=db_commons
+      - DB_USERNAME=$TOOLFORGE_DB_USERNAME
+      - DB_PASSWORD=$TOOLFORGE_DB_PASSWORD
+
+  db_commons:
+    image: jeanfred/wiki-replicas-proxy
+    volumes:
+      - $SSH_AUTH_SOCK:$SSH_AUTH_SOCK
+    environment:
+      SSH_USER: $SSH_USER
+      WIKI_DB: commonswiki
+      SSH_AUTH_SOCK:
