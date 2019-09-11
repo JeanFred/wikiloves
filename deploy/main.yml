@@ -36,12 +36,12 @@
         - git
         - skip_ansible_lint  # Skip E401, we always want latest version
 
-    - name: Install requirements
-      pip:
-        requirements: '{{ checkout_path }}/requirements.txt'
-        virtualenv: '{{ virtualenv_path }}'
-      tags:
-        - requirements
+    # - name: Install requirements
+    #   pip:
+    #     requirements: '{{ checkout_path }}/requirements.txt'
+    #     virtualenv: '{{ virtualenv_path }}'
+    #   tags:
+    #     - requirements
 
     - name: Symlink src directory
       file:
@@ -56,9 +56,11 @@
         name: "{{ item.name }}"
         env: yes
         value: "{{ item.value }}"
+        executable: '/usr/local/bin/crontab'
       with_items:
         - {name: 'UPDATE_SCRIPT', value: '/data/project/wikiloves/wikiloves/bin/update_database.sh'}
-        - {name: 'UPDATE_LOG_FILE', value: '/data/project/wikiloves/logs/update-database.log'}
+        - {name: 'UPDATE_LOG_FILE_LOW', value: '/data/project/wikiloves/logs/update-database-low.log'}
+        - {name: 'UPDATE_LOG_FILE_HIGH', value: '/data/project/wikiloves/logs/update-database-high.log'}
         - {name: 'CRONTAB_LOG_FILE', value: '/data/project/wikiloves/logs/crontab.log'}
         - {name: 'JSUB_PARAMS', value: '-mem 1000m -once -j y'}
       tags:
@@ -69,7 +71,8 @@
         name: Nightly update
         minute: 56
         hour: 0
-        job: jsub $JSUB_PARAMS -o $UPDATE_LOG_FILE -N update_database_high $UPDATE_SCRIPT >> $CRONTAB_LOG_FILE
+        job: jsub $JSUB_PARAMS -o $UPDATE_LOG_FILE_LOW -N update_database_low $UPDATE_SCRIPT >> $CRONTAB_LOG_FILE
+        executable: '/usr/local/bin/crontab'
       tags:
         - crontab
 
@@ -77,6 +80,7 @@
       cron:
         name: High-frequency update for the current competition
         minute: '*/15'
-        job: jsub $JSUB_PARAMS -o $UPDATE_LOG_FILE -N update_database_low $UPDATE_SCRIPT africa2019 >> $CRONTAB_LOG_FILE
+        job: jsub $JSUB_PARAMS -o $UPDATE_LOG_FILE_HIGH -N update_database_high $UPDATE_SCRIPT monuments2019 >> $CRONTAB_LOG_FILE
+        executable: '/usr/local/bin/crontab'
       tags:
         - crontab
