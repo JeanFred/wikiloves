@@ -1,6 +1,6 @@
 # -*- coding: utf-8  -*-
 
-from commons_database import DB
+from commons_database import DB, DatabaseException
 from functions import get_wikiloves_category_name, normalize_country_name
 
 
@@ -9,7 +9,10 @@ def makeQuery(args):
         country = normalize_country_name(args['country'])
         category = get_wikiloves_category_name(args['event'].title(), args['year'], country)
         queryArgs = (category,)
+        print '== query args =='
+        print queryArgs
     else:
+        print 'args no good, returning'
         return
     start = 'start' in args and args.get('start').isdigit() and int(args.get('start')) or 0
     params = {}
@@ -20,7 +23,7 @@ def makeQuery(args):
     params['mb'] = minmax(args.get('minmb'), args.get('maxmb'), ' AND img_size', lambda n: int(n) * 1048576)
     params['mp'] = minmax(args.get('minmp'), args.get('maxmp'), ' HAVING pixels', lambda n: int(n) * 1000000)
     params['timestamp'] = minmax(args.get('from'), args.get('until'), ' AND img_timestamp', lambda n: len(n) == 14 and n)
-    return (u'''SELECT
+    result = (u'''SELECT
  img_name,
  SUBSTR(MD5(img_name), 1, 2),
  img_width,
@@ -34,6 +37,8 @@ def makeQuery(args):
  WHERE cl_to = %s AND cl_type = 'file' AND img_major_mime = 'image'{user}{timestamp}{mb}{mp}
  ORDER BY pixels DESC
  LIMIT 201{start}'''.format(**params), queryArgs)
+    print result
+    return result
 
 
 def get(args):
@@ -41,8 +46,12 @@ def get(args):
     if not sql:
         return
     commonsdb = DB()
-    data = commonsdb.query(*sql)
-    return [(i[0].decode('utf-8'), i[1], int(i[2]), int(i[3]), i[4], i[5], i[6]) for i in data]
+    try:
+        data = commonsdb.query(*sql)
+        return [(i[0].decode('utf-8'), i[1], int(i[2]), int(i[3]), i[4], i[5], i[6]) for i in data]
+    except DatabaseException as e:
+        print 'There was an issue'
+        return []
 
 
 def minmax(pmin, pmax, prefix, func=None):

@@ -6,6 +6,8 @@ import time
 
 import pymysql
 
+class DatabaseException(Exception):
+    pass
 
 class DB:
     """
@@ -47,6 +49,9 @@ class DB:
                 else:
                     return self._query(*sql)
                     break
+            except TypeError as e:
+                print "Issue when creating database query, exiting"
+                raise DatabaseException(e)
             else:
                 print "Uncaught exception when running query"
                 print sql
