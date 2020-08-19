@@ -39,15 +39,15 @@ def get_config_from_commons(page):
 def parse_config(text):
     data, event, prefixes = {}, None, {}
     lines = iter(text.split(u'\n'))
-    for l in lines:
-        m = re_prefix(l)
+    for line in lines:
+        m = re_prefix(line)
         if prefixes and m and m.group('close'):
             break
         elif m and m.group('prefix'):
             prefixes[m.group('prefix')] = m.group('name')
 
-    for l in lines:
-        g = reData(l, event[-4:] if event else ur'20\d\d')
+    for line in lines:
+        g = reData(line, event[-4:] if event else ur'20\d\d')
         if not g:
             continue
         if g['event']:
