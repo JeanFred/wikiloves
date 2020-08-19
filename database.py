@@ -27,7 +27,7 @@ def reData(txt, year):
 
 
 def re_prefix(txt):
-    return re.search(u'\s*\["(?P<prefix>[\w-]+)"\] = "(?P<name>[\w\-\' ]+)"|(?P<close>\})', txt, re.UNICODE)
+    return re.search(r'\s*\["(?P<prefix>[\w-]+)"\] = "(?P<name>[\w\-\' ]+)"|(?P<close>\})', txt, re.UNICODE)
 
 
 def get_config_from_commons(page):
