@@ -131,6 +131,7 @@ edition_exceptions = {
 }
 
 special_exceptions = {
+    ("Monuments", "2020", "Austria"): 'Media_from_WikiDaheim_2020_in_Austria/Cultural_heritage_monuments',
     ("Monuments", "2019", "Austria"): 'Media_from_WikiDaheim_2019_in_Austria/Cultural_heritage_monuments',
     ("Monuments", "2018", "Austria"): 'Media_from_WikiDaheim_2018_in_Austria/Cultural_heritage_monuments',
     ("Monuments", "2017", "Austria"): 'Media_from_WikiDaheim_2017_in_Austria/Cultural_heritage_monuments',
