@@ -174,13 +174,18 @@ def get_data_for_category(category_name):
     (20140529121626, False, u'Example', 20140528235032)
     """
     query_data = commonsdb.query(dbquery, (category_name,))
-    dbData = tuple(
-        (int(timestamp),
-         bool(usage),
-         user.decode('utf-8'),
-         int(user_reg or 0))
-        for timestamp, usage, user, user_reg in query_data)
+    dbData = tuple(convert_database_record(record) for record in query_data)
     return dbData
+
+
+def convert_database_record(record):
+    (timestamp, usage, user, user_reg) = record
+    return (
+        int(timestamp),
+        bool(usage),
+        user.decode('utf-8'),
+        int(user_reg or 0)
+    )
 
 
 def write_database_as_json(db):

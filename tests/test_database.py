@@ -67,6 +67,15 @@ class TestRePrefix(unittest.TestCase):
         self.assertIsNotNone(database.re_prefix(u'    ["ci"] = "Côte d\'Ivoire",'))
 
 
+class TestConvertDatabaseRecord(unittest.TestCase):
+
+    def test_convert_database_record(self):
+        record = ('20140523121626', 'False', 'Bob', '20130523235032')
+        result = database.convert_database_record(record)
+        expected = (20140523121626, True, u'Bob', 20130523235032)
+        self.assertEquals(result, expected)
+
+
 class TestGetDataMixin(unittest.TestCase):
 
     def setUp(self):
