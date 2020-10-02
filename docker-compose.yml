@@ -7,8 +7,21 @@ services:
     command: python app.py
     ports:
      - 5000:5000
+    depends_on:
+      - db_commons
     volumes:
      - .:/code
      - ./conf/db.dump.json:/code/db.json
     environment:
       - LOCAL_ENVIRONMENT=True
+      - DB_USERNAME=$TOOLFORGE_DB_USERNAME
+      - DB_PASSWORD=$TOOLFORGE_DB_PASSWORD
+      - DB_HOST=db_commons
+  db_commons:
+    image: jeanfred/wiki-replicas-proxy
+    volumes:
+      - $SSH_AUTH_SOCK:$SSH_AUTH_SOCK
+    environment:
+      SSH_USER: $SSH_USER
+      WIKI_DB: commonswiki
+      SSH_AUTH_SOCK:
