@@ -17,6 +17,7 @@ services:
       - DB_USERNAME=$TOOLFORGE_DB_USERNAME
       - DB_PASSWORD=$TOOLFORGE_DB_PASSWORD
       - DB_HOST=db_commons
+      - SOURCE_PATH=/code/
   db_commons:
     image: jeanfred/wiki-replicas-proxy
     volumes:
