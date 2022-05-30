@@ -1,11 +1,10 @@
 ---
 - hosts: toolforge
-  become: yes
-  become_user: "tools.wikiloves"
   gather_facts: no
 
   vars:
-    base_path: /data/project/wikiloves
+    tool_name: wikiloves
+    base_path: "/data/project/{{ tool_name }}"
     checkout_path: "{{ base_path }}/wikiloves"
     toolforge_path: "{{ base_path }}/www/python"
     virtualenv_path: "{{ toolforge_path }}/venv"
