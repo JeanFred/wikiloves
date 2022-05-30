@@ -141,6 +141,8 @@ special_exceptions = {
     ("Monuments", "2013", "Armenia"): 'Images_from_Wiki_Loves_Monuments_2013_in_Armenia',
     ("Earth", "2020", "Armenia"): 'Images_from_Wiki_Loves_Earth_2020_in_Armenia',
     ("Earth", "2021", "Armenia"): 'Images_from_Wiki_Loves_Earth_2021_in_Armenia',
+    ("Earth", "2021", "United Arab Emirates"): 'Images_from_Wiki_Loves_Earth_2021_in_United_Arab_Emirates',
+    ("Earth", "2022", "United Arab Emirates"): 'Images_from_Wiki_Loves_Earth_2021_in_United_Arab_Emirates',
     ("Science", "2015", "Armenia"): 'Images_from_European_Science_Photo_Competition_2015_in_Armenia',
     ("Science", "2013", "Estonia"): 'Images_from_Teadusfoto_2013',
     ("Science", "2012", "Estonia"): 'Images_from_Teadusfoto_2012',
