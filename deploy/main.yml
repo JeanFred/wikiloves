@@ -60,7 +60,7 @@
         - {name: 'UPDATE_LOG_FILE_LOW', value: '/data/project/wikiloves/logs/update-database-low.log'}
         - {name: 'UPDATE_LOG_FILE_HIGH', value: '/data/project/wikiloves/logs/update-database-high.log'}
         - {name: 'CRONTAB_LOG_FILE', value: '/data/project/wikiloves/logs/crontab.log'}
-        - {name: 'JSUB_PARAMS', value: '-mem 1000m -once -j y'}
+        - {name: 'JSUB_PARAMS', value: '-release buster -mem 1000m -once -j y'}
       tags:
         - crontab
 
