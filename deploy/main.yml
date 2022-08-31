@@ -77,6 +77,6 @@
       cron:
         name: High-frequency update for the current competition
         minute: '*/15'
-        job: jsub $JSUB_PARAMS -o $UPDATE_LOG_FILE_HIGH -N update_database_high $UPDATE_SCRIPT earth2022 >> $CRONTAB_LOG_FILE
+        job: jsub $JSUB_PARAMS -o $UPDATE_LOG_FILE_HIGH -N update_database_high $UPDATE_SCRIPT monuments2022 >> $CRONTAB_LOG_FILE
       tags:
         - crontab
