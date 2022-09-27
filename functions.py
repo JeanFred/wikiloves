@@ -7,6 +7,7 @@ EVENTS = [
     'africa',
     'public_art',
     'science',
+    'food',
 ]
 
 
