@@ -77,6 +77,7 @@ def logpage():
 @app.route('/africa', defaults={'scope': 'africa'})
 @app.route('/public_art', defaults={'scope': 'public_art'})
 @app.route('/science', defaults={'scope': 'science'})
+@app.route('/food', defaults={'scope': 'food'})
 def event_main(scope):
     if not db:
         return index()

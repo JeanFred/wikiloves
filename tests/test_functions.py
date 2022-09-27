@@ -165,9 +165,9 @@ class TestGetCountrySummary(unittest.TestCase):
         }
         result = functions.get_country_summary(country_data)
         expected = {
-            'Benin': [None, None, ['2014'], None, None],
-            'Panama': [['2016'], ['2016'], None, None, None],
-            'Turkey': [['2015'], ['2016', '2017'], None, None, None]
+            'Benin': [None, None, ['2014'], None, None, None],
+            'Panama': [['2016'], ['2016'], None, None, None, None],
+            'Turkey': [['2015'], ['2016', '2017'], None, None, None, None]
         }
         self.assertEqual(result, expected)
 
@@ -207,6 +207,16 @@ class TestProcessData(TestProcessDataMixin):
             },
             u'Estonia': {
                 u'science': {
+                    u'2017': {
+                        'count': 9,
+                        'usage': 0,
+                        'usercount': 1,
+                        'userreg': 0
+                    }
+                }
+            },
+            u'India': {
+                u'food': {
                     u'2017': {
                         'count': 9,
                         'usage': 0,
@@ -275,6 +285,15 @@ class TestProcessData(TestProcessDataMixin):
                     'userreg': 2
                 }
             },
+            u'food': {
+                u'2017': {
+                    'count': 9,
+                    'country_count': 1,
+                    'usage': 0,
+                    'usercount': 1,
+                    'userreg': 0
+                }
+            },
             u'monuments': {
                 u'2016': {
                     'count': 31,
@@ -312,7 +331,8 @@ class TestProcessData(TestProcessDataMixin):
             u'monuments': [u'2016'],
             u'africa': [u'2014'],
             u'public_art': [u'2013'],
-            u'science': [u'2017']
+            u'science': [u'2017'],
+            u'food': [u'2017']
         }
         self.assertEqual(result, expected)
 

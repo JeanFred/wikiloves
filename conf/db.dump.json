@@ -189,5 +189,30 @@
       },
       "usercount": 1
     }
+  },
+  "food2017": {
+    "India": {
+      "count": 9,
+      "category": "Images_from_Wiki_Loves_Food_2017_in_India",
+      "end": 20171215220000,
+      "users": {
+        "Foo": {
+          "count": 5,
+          "usage": 0,
+          "reg": 20171114205959
+        }
+      },
+      "start": 20171031220000,
+      "userreg": 0,
+      "usage": 0,
+      "data": {
+        "20171130": {
+          "images": 5,
+          "joiners": 1,
+          "newbie_joiners": 1
+        }
+      },
+      "usercount": 1
+    }
   }
 }
