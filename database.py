@@ -5,8 +5,8 @@ import io
 import json
 import time
 
-from configuration import getConfig
 from commons_database import DB
+from configuration import getConfig
 from functions import get_wikiloves_category_name
 
 updateLog = []
