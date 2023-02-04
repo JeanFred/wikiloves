@@ -214,5 +214,30 @@
       },
       "usercount": 1
     }
+  },
+  "folklore2022": {
+    "India": {
+      "count": 9,
+      "category": "Images_from_Wiki_Loves_Folklore_2022_in_India",
+      "end": 20221215220000,
+      "users": {
+        "Foo": {
+          "count": 5,
+          "usage": 0,
+          "reg": 20221114205959
+        }
+      },
+      "start": 20221031220000,
+      "userreg": 0,
+      "usage": 0,
+      "data": {
+        "20221130": {
+          "images": 5,
+          "joiners": 1,
+          "newbie_joiners": 1
+        }
+      },
+      "usercount": 1
+    }
   }
 }

@@ -8,6 +8,7 @@ EVENTS = [
     'public_art',
     'science',
     'food',
+    'folklore',
 ]
 
 
