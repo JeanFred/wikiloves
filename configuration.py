@@ -3,7 +3,7 @@
 
 import json
 import re
-from urllib import urlopen
+from urllib.request import urlopen
 
 from functions import EVENTS
 
@@ -13,7 +13,7 @@ def reData(txt, year):
     Parser para linha da configuração
     """
     events = '|'.join(EVENTS)
-    regex = ur'''
+    regex = r'''
         \s*wl\["(?P<event>%s)"\]\[(?P<year>20\d\d)]\ ?=\ ?\{|
         \s*\["(?P<country>[-a-z]+)"\]\ =\ \{\["start"\]\ =\ (?P<start>%s\d{10}),\ \["end"\]\ =\ (?P<end>%s\d\d{10})\}
         ''' % (events, year, str(year)[:3])
@@ -27,13 +27,13 @@ def re_prefix(txt):
 
 def get_config_from_commons(page):
     api = urlopen('https://commons.wikimedia.org/w/api.php?action=query&format=json&prop=revisions&titles=%s&rvprop=content' % page)
-    text = json.loads(api.read())['query']['pages'].values()[0]['revisions'][0]['*']
-    return unicode(text)
+    text = list(json.loads(api.read())['query']['pages'].values())[0]['revisions'][0]['*']
+    return str(text)
 
 
 def parse_config(text):
     data, event, prefixes = {}, None, {}
-    lines = iter(text.split(u'\n'))
+    lines = iter(text.split('\n'))
     for line in lines:
         m = re_prefix(line)
         if prefixes and m and m.group('close'):
@@ -42,7 +42,7 @@ def parse_config(text):
             prefixes[m.group('prefix')] = m.group('name')
 
     for line in lines:
-        g = reData(line, event[-4:] if event else ur'20\d\d')
+        g = reData(line, event[-4:] if event else r'20\d\d')
         if not g:
             continue
         if g['event']:
@@ -54,7 +54,7 @@ def parse_config(text):
                 continue
             data[event][prefixes[g['country']]] = {'start': int(g['start']), 'end': int(g['end'])}
 
-    return {name: config for name, config in data.items() if config}
+    return {name: config for name, config in list(data.items()) if config}
 
 
 def getConfig(page):

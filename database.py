@@ -11,7 +11,7 @@ from functions import get_wikiloves_category_name
 
 updateLog = []
 
-dbquery = u'''SELECT
+dbquery = '''SELECT
  img_timestamp,
  img_name IN (SELECT DISTINCT gil_to FROM globalimagelinks) AS image_in_use,
  COALESCE(user.user_name, actor.actor_id) as name,
@@ -38,13 +38,13 @@ def getData(name, data):
     default_endtime = max(data[c]['end'] for c in data if 'end' in data[c])
     result_data = {}
 
-    for country_name, country_config in data.iteritems():
+    for country_name, country_config in data.items():
 
         event = name[0:-4].title()
         year = name[-4:]
         cat = get_wikiloves_category_name(event, year, country_name)
         if name == 'monuments2010':
-            cat = u'Images_from_Wiki_Loves_Monuments_2010'
+            cat = 'Images_from_Wiki_Loves_Monuments_2010'
 
         start_time = country_config.get('start', default_starttime)
         end_time = country_config.get('end', default_endtime)
@@ -52,8 +52,8 @@ def getData(name, data):
         if country_data:
             result_data[country_name] = country_data
         else:
-            updateLog.append(u'%s in %s is configured, but no file was found in [[Category:%s]]' %
-                             (name, country_name, cat.replace(u'_', u' ')))
+            updateLog.append('%s in %s is configured, but no file was found in [[Category:%s]]' %
+                             (name, country_name, cat.replace('_', ' ')))
     return result_data
 
 
@@ -95,15 +95,15 @@ def get_country_data(category, start_time, end_time):
     country_data.update(
         {'data': daily_data, 'users': user_data})
     country_data['usercount'] = len(user_data)
-    country_data['count'] = sum(u['count'] for u in user_data.itervalues())
-    country_data['usage'] = sum(u['usage'] for u in user_data.itervalues())
-    country_data['userreg'] = len([user for user in user_data.itervalues() if user['reg'] > start_time])
+    country_data['count'] = sum(u['count'] for u in user_data.values())
+    country_data['usage'] = sum(u['usage'] for u in user_data.values())
+    country_data['userreg'] = len([user for user in user_data.values() if user['reg'] > start_time])
     country_data['category'] = category
     country_data['start'] = start_time
     country_data['end'] = end_time
     if discarded_counter:
-        updateLog.append(u'%s images discarded as out of bounds in [[Category:%s]]' %
-                         (discarded_counter, category.replace(u'_', u' ')))
+        updateLog.append('%s images discarded as out of bounds in [[Category:%s]]' %
+                         (discarded_counter, category.replace('_', ' ')))
 
     return country_data
 
@@ -124,7 +124,7 @@ def convert_database_record(record):
     return (
         int(timestamp),
         bool(usage),
-        user.decode('utf-8'),
+        user,
         int(user_reg or 0)
     )
 
@@ -141,7 +141,7 @@ def update_event_data(event_slug, event_configuration, db):
     write_database_as_json(db)
     log = 'Saved %s: %dsec, %d countries, %d uploads' % \
         (event_slug, time.time() - start, len(event_data), sum(event_data[c].get('count', 0) for c in event_data))
-    print log
+    print(log)
     updateLog.append(log)
     return db
 
@@ -155,31 +155,31 @@ if __name__ == '__main__':
                         help='A list of events to update')
     args = parser.parse_args()
 
-    print "Fetching configuration..."
-    config = getConfig(u'Module:WL_data')
+    print("Fetching configuration...")
+    config = getConfig('Module:WL_data')
     try:
         with open('db.json', 'r') as f:
             db = json.load(f)
     except Exception as e:
-        print u'Erro ao abrir db.json:', repr(e)
+        print('Erro ao abrir db.json:', repr(e))
         db = {}
-    print "Found %s events in the configuration." % len(config)
+    print("Found %s events in the configuration." % len(config))
 
     commonsdb = DB()
 
     if args.events:
-        print "Updating only %s event(s): %s." % (len(args.events), ', '.join(args.events))
+        print("Updating only %s event(s): %s." % (len(args.events), ', '.join(args.events)))
         for event_name in args.events:
             event_configuration = config.get(event_name)
             if event_configuration:
-                print "Fetching data for %s..." % event_name
+                print("Fetching data for %s..." % event_name)
                 db = update_event_data(event_name, event_configuration, db)
             else:
-                print "Invalid event: %s" % event_name
+                print("Invalid event: %s" % event_name)
     else:
-        print "Updating all %s events." % len(config)
-        for (event_name, event_configuration) in config.iteritems():
-            print "Fetching data for %s..." % event_name
+        print("Updating all %s events." % len(config))
+        for (event_name, event_configuration) in config.items():
+            print("Fetching data for %s..." % event_name)
             db = update_event_data(event_name, event_configuration, db)
 
     if updateLog:

@@ -5,7 +5,7 @@ from functions import get_wikiloves_category_name, normalize_country_name
 
 
 def makeQuery(args):
-    if u'event' in args and u'year' in args and u'country' in args:
+    if 'event' in args and 'year' in args and 'country' in args:
         country = normalize_country_name(args['country'])
         category = get_wikiloves_category_name(args['event'].title(), args['year'], country)
         queryArgs = (category,)
@@ -13,14 +13,14 @@ def makeQuery(args):
         return
     start = 'start' in args and args.get('start').isdigit() and int(args.get('start')) or 0
     params = {}
-    params['user'] = u' AND img_user_text = ?' if u'user' in args else u''
+    params['user'] = ' AND img_user_text = ?' if 'user' in args else ''
     if params['user']:
         queryArgs += (args['user'].replace('_', ' '),)
-    params['start'] = ' OFFSET ' + str(args.get('start')) if start else u''
+    params['start'] = ' OFFSET ' + str(args.get('start')) if start else ''
     params['mb'] = minmax(args.get('minmb'), args.get('maxmb'), ' AND img_size', lambda n: int(n) * 1048576)
     params['mp'] = minmax(args.get('minmp'), args.get('maxmp'), ' HAVING pixels', lambda n: int(n) * 1000000)
     params['timestamp'] = minmax(args.get('from'), args.get('until'), ' AND img_timestamp', lambda n: len(n) == 14 and n)
-    return (u'''SELECT
+    return ('''SELECT
  img_name,
  SUBSTR(MD5(img_name), 1, 2),
  img_width,

@@ -54,7 +54,7 @@ def get_edition_data(db, edition_slug):
 
 def get_instance_users_data(db, edition_slug, country):
     return sorted(
-            db[edition_slug][country]['users'].items(),
+            list(db[edition_slug][country]['users'].items()),
             key=lambda i: (i[1]['count'], i[0]), reverse=True)
 
 
@@ -81,17 +81,17 @@ def get_event_name(event_slug):
 
     Returns title case with underscore replaced.
     """
-    default = u'Wiki Loves %s' % event_slug.replace('_', ' ').title()
+    default = 'Wiki Loves %s' % event_slug.replace('_', ' ').title()
     return event_exceptions.get(event_slug.lower(), default)
 
 
 def get_edition_name(scope_slug, year):
-    default = u'%s %s' % (get_event_name(scope_slug), year)
+    default = '%s %s' % (get_event_name(scope_slug), year)
     return edition_exceptions.get((scope_slug.lower(), str(year)), default)
 
 
 def get_instance_name(scope_slug, year, country):
-    return u'%s %s in %s' % (get_event_name(scope_slug), year, country)
+    return '%s %s in %s' % (get_event_name(scope_slug), year, country)
 
 
 def get_wikiloves_category_name(event_slug, year, country):
@@ -101,31 +101,31 @@ def get_wikiloves_category_name(event_slug, year, country):
     edition = get_edition_name(event_slug, year)
     template = get_event_category_template()
     country_name = catExceptions.get(country, country)
-    return template.format(edition=edition, country=country_name).replace(' ', u'_')
+    return template.format(edition=edition, country=country_name).replace(' ', '_')
 
 
 def get_event_category_template():
-    return u'Images_from_{edition}_in_{country}'
+    return 'Images_from_{edition}_in_{country}'
 
 
 event_exceptions = {
-    u'science': 'Wiki Science Competition',
+    'science': 'Wiki Science Competition',
 }
 
 catExceptions = {
-    u'Armenia': u'Armenia_&_Nagorno-Karabakh',
-    u'Netherlands': u'the_Netherlands',
-    u'Central African Republic': u'the_Central_African_Republic',
-    u'Comoros': u'the_Comoros',
-    u'Czech Republic': u'the_Czech_Republic',
-    u'Democratic Republic of the Congo': u'the_Democratic_Republic_of_the_Congo',
-    u'Republic of the Congo': u'the_Republic_of_the_Congo',
-    u'Dutch Caribbean': u'the_Dutch_Caribbean',
-    u'Philippines': u'the_Philippines',
-    u'Seychelles': u'the_Seychelles',
-    u'United Arab Emirates': u'the_United_Arab_Emirates',
-    u'United Kingdom': u'the_United_Kingdom',
-    u'United States': u'the_United_States'
+    'Armenia': 'Armenia_&_Nagorno-Karabakh',
+    'Netherlands': 'the_Netherlands',
+    'Central African Republic': 'the_Central_African_Republic',
+    'Comoros': 'the_Comoros',
+    'Czech Republic': 'the_Czech_Republic',
+    'Democratic Republic of the Congo': 'the_Democratic_Republic_of_the_Congo',
+    'Republic of the Congo': 'the_Republic_of_the_Congo',
+    'Dutch Caribbean': 'the_Dutch_Caribbean',
+    'Philippines': 'the_Philippines',
+    'Seychelles': 'the_Seychelles',
+    'United Arab Emirates': 'the_United_Arab_Emirates',
+    'United Kingdom': 'the_United_Kingdom',
+    'United States': 'the_United_States'
 }
 
 edition_exceptions = {

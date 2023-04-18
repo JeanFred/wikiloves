@@ -13,8 +13,8 @@ class TestConvertDatabaseRecord(unittest.TestCase):
     def test_convert_database_record(self):
         record = ('20140523121626', 'False', 'Bob', '20130523235032')
         result = database.convert_database_record(record)
-        expected = (20140523121626, True, u'Bob', 20130523235032)
-        self.assertEquals(result, expected)
+        expected = (20140523121626, True, 'Bob', 20130523235032)
+        self.assertEqual(result, expected)
 
 
 class TestGetDataMixin(unittest.TestCase):
@@ -23,10 +23,10 @@ class TestGetDataMixin(unittest.TestCase):
         patcher = mock.patch('database.get_data_for_category', autospec=True)
         self.mock_get_data_for_category = patcher.start()
         self.mock_get_data_for_category.return_value = (
-            (20140523121626, False, u'Bob', 20130523235032),
-            (20140523121626, False, u'Alice', 20140528235032),
-            (20140529121626, False, u'Alice', 20140528235032),
-            (20140530121626, False, u'Alice', 20140528235032),
+            (20140523121626, False, 'Bob', 20130523235032),
+            (20140523121626, False, 'Alice', 20140528235032),
+            (20140529121626, False, 'Alice', 20140528235032),
+            (20140530121626, False, 'Alice', 20140528235032),
         )
         self.addCleanup(patcher.stop)
 
@@ -54,12 +54,12 @@ class TestGetDataMixin(unittest.TestCase):
         self.usage = 0
 
         self.user_data = {
-            u'Alice': {
+            'Alice': {
                 'count': 3,
                 'reg': 20140528235032,
                 'usage': 0
             },
-            u'Bob': {
+            'Bob': {
                 'count': 1,
                 'reg': 20130523235032,
                 'usage': 0
@@ -71,13 +71,13 @@ class TestGetData(TestGetDataMixin):
 
     def test_GetData(self):
         competition_config = {
-            u'Brazil': {'start': 20140501030000, 'end': 20140601025959},
+            'Brazil': {'start': 20140501030000, 'end': 20140601025959},
         }
 
         result = database.getData("Dumplings2014", competition_config)
 
         expected = {
-            u'Brazil': {
+            'Brazil': {
                 'count': self.images_count,
                 'usercount': self.usercount,
                 'start': 20140501030000,
@@ -85,17 +85,17 @@ class TestGetData(TestGetDataMixin):
                 'data': self.expected_timestamp_data,
                 'users': self.user_data,
                 'usage': self.usage,
-                'category': u'Images_from_Wiki_Loves_Dumplings_2014_in_Brazil',
+                'category': 'Images_from_Wiki_Loves_Dumplings_2014_in_Brazil',
                 'end': 20140601025959
             }
         }
-        self.assertEquals(result, expected)
+        self.assertEqual(result, expected)
 
 
 class TestGetCountryData(TestGetDataMixin):
 
     def test_get_country_data(self):
-        category = u'Images_from_Wiki_Loves_Dumplings_2014_in_Brazil'
+        category = 'Images_from_Wiki_Loves_Dumplings_2014_in_Brazil'
         result = database.get_country_data(category, 20140501030000, 20140601025959)
 
         expected = {
@@ -110,7 +110,7 @@ class TestGetCountryData(TestGetDataMixin):
             'end': 20140601025959
         }
         self.mock_get_data_for_category.assert_called_once_with(category)
-        self.assertEquals(result, expected)
+        self.assertEqual(result, expected)
 
 
 class TestUpdateEventData(TestGetDataMixin):
@@ -123,13 +123,13 @@ class TestUpdateEventData(TestGetDataMixin):
 
     def test_udpate_event_data(self):
         self.maxDiff = None
-        event_name = u'dumplings2014'
+        event_name = 'dumplings2014'
         event_configuration = {
-            u'Azerbaijan': {
+            'Azerbaijan': {
                 'start': 20140430200000,
                 'end': 20140531195959,
             },
-            u'Guinea-Bissau': {
+            'Guinea-Bissau': {
                 'start': 20140430200000,
                 'end': 20140531195959,
             },
@@ -150,20 +150,20 @@ class TestUpdateEventData(TestGetDataMixin):
 
         expected_az = expected_base.copy()
         expected_az.update({
-            'category': u'Images_from_Wiki_Loves_Dumplings_2014_in_Azerbaijan',
+            'category': 'Images_from_Wiki_Loves_Dumplings_2014_in_Azerbaijan',
         })
         expected_gb = expected_base.copy()
         expected_gb.update({
-            'category': u'Images_from_Wiki_Loves_Dumplings_2014_in_Guinea-Bissau',
+            'category': 'Images_from_Wiki_Loves_Dumplings_2014_in_Guinea-Bissau',
         })
 
         expected = {
-            u'dumplings2014': {
-                u'Azerbaijan': expected_az,
-                u'Guinea-Bissau': expected_gb,
+            'dumplings2014': {
+                'Azerbaijan': expected_az,
+                'Guinea-Bissau': expected_gb,
             }
         }
-        self.assertEquals(result, expected)
+        self.assertEqual(result, expected)
         self.mock_write_database_as_json.assert_called_once_with(expected)
 
 

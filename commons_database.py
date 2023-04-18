@@ -42,14 +42,14 @@ class DB:
             except (AttributeError, pymysql.err.OperationalError):
                 if loops < 10:
                     loops += 1
-                    print 'Erro no DB, esperando %ds antes de tentar de novo' % loops
+                    print('Erro no DB, esperando %ds antes de tentar de novo' % loops)
                     time.sleep(loops)
                 else:
                     return self._query(*sql)
                     break
             else:
-                print "Uncaught exception when running query"
-                print sql
+                print("Uncaught exception when running query")
+                print(sql)
                 break
         self.close_connection()
 
