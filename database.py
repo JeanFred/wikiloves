@@ -74,6 +74,7 @@ def get_country_data(category, start_time, end_time):
     discarded_counter = 0
 
     for timestamp, usage, user, user_reg in dbData:
+        user = str(user.decode())
         # Desconsidera timestamps fora do período da campanha
         if not start_time <= timestamp <= end_time:
             discarded_counter += 1
