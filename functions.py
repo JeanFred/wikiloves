@@ -207,6 +207,7 @@ special_exceptions = {
     ): "Images_from_Wiki_Loves_Monuments_2013_in_Armenia",
     ("Earth", "2020", "Armenia"): "Images_from_Wiki_Loves_Earth_2020_in_Armenia",
     ("Earth", "2021", "Armenia"): "Images_from_Wiki_Loves_Earth_2021_in_Armenia",
+    ("Earth", "2023", "Armenia"): "Images_from_Wiki_Loves_Earth_2023_in_Armenia",
     (
         "Earth",
         "2021",
