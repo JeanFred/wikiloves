@@ -217,7 +217,17 @@ special_exceptions = {
         "Earth",
         "2022",
         "United Arab Emirates",
-    ): "Images_from_Wiki_Loves_Earth_2021_in_United_Arab_Emirates",
+    ): "Images_from_Wiki_Loves_Earth_2022_in_United_Arab_Emirates",
+    (
+        "Earth",
+        "2022",
+        "Democratic Republic of the Congo",
+    ): "Images_from_Wiki_Loves_Earth_2022_in_DR_Congo",
+    (
+        "Earth",
+        "2023",
+        "Democratic Republic of the Congo",
+    ): "Images_from_Wiki_Loves_Earth_2023_in_DR_Congo",
     (
         "Science",
         "2015",
