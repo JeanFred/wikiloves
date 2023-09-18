@@ -17,7 +17,7 @@ def makeQuery(args):
         "start" in args and args.get("start").isdigit() and int(args.get("start")) or 0
     )
     params = {}
-    params["user"] = " AND img_user_text = ?" if "user" in args else ""
+    params["user"] = " AND img_user_text = %s" if "user" in args else ""
     if params["user"]:
         queryArgs += (args["user"].replace("_", " "),)
     params["start"] = " OFFSET " + str(args.get("start")) if start else ""
