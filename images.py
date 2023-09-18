@@ -17,7 +17,7 @@ def makeQuery(args):
         "start" in args and args.get("start").isdigit() and int(args.get("start")) or 0
     )
     params = {}
-    params["user"] = " AND img_user_text = %s" if "user" in args else ""
+    params["user"] = " AND actor_name = %s" if "user" in args else ""
     if params["user"]:
         queryArgs += (args["user"].replace("_", " "),)
     params["start"] = " OFFSET " + str(args.get("start")) if start else ""
@@ -51,6 +51,7 @@ def makeQuery(args):
  FROM categorylinks
  INNER JOIN page ON cl_from = page_id
  INNER JOIN image ON page_title = img_name
+ INNER JOIN actor_image ON actor_image.actor_id = image.img_actor
  WHERE cl_to = %s AND cl_type = 'file' AND img_major_mime = 'image'{user}{timestamp}{mb}{mp}
  ORDER BY pixels DESC
  LIMIT 201{start}""".format(
