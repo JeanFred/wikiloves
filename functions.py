@@ -182,6 +182,11 @@ special_exceptions = {
     ): "Media_from_WikiDaheim_2017_in_Austria/Cultural_heritage_monuments",
     (
         "Monuments",
+        "2023",
+        "Armenia",
+    ): "Images_from_Wiki_Loves_Monuments_2023_in_Armenia",
+    (
+        "Monuments",
         "2022",
         "Armenia",
     ): "Images_from_Wiki_Loves_Monuments_2022_in_Armenia",
