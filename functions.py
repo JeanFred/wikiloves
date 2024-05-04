@@ -130,7 +130,6 @@ event_exceptions = {
 }
 
 catExceptions = {
-    "Armenia": "Armenia_&_Nagorno-Karabakh",
     "Netherlands": "the_Netherlands",
     "Central African Republic": "the_Central_African_Republic",
     "Comoros": "the_Comoros",
@@ -187,37 +186,15 @@ special_exceptions = {
     ): "Media_from_WikiDaheim_2017_in_Austria/Cultural_heritage_monuments",
     (
         "Monuments",
-        "2023",
+        "2015",
         "Armenia",
-    ): "Images_from_Wiki_Loves_Monuments_2023_in_Armenia",
+    ): "Images_from_Wiki_Loves_Monuments_2015_in_Armenia_&_Nagorno-Karabakh",
     (
         "Monuments",
-        "2022",
+        "2017",
         "Armenia",
-    ): "Images_from_Wiki_Loves_Monuments_2022_in_Armenia",
-    (
-        "Monuments",
-        "2021",
-        "Armenia",
-    ): "Images_from_Wiki_Loves_Monuments_2021_in_Armenia",
-    (
-        "Monuments",
-        "2020",
-        "Armenia",
-    ): "Images_from_Wiki_Loves_Monuments_2020_in_Armenia",
-    (
-        "Monuments",
-        "2019",
-        "Armenia",
-    ): "Images_from_Wiki_Loves_Monuments_2019_in_Armenia",
-    (
-        "Monuments",
-        "2013",
-        "Armenia",
-    ): "Images_from_Wiki_Loves_Monuments_2013_in_Armenia",
-    ("Earth", "2020", "Armenia"): "Images_from_Wiki_Loves_Earth_2020_in_Armenia",
-    ("Earth", "2021", "Armenia"): "Images_from_Wiki_Loves_Earth_2021_in_Armenia",
-    ("Earth", "2023", "Armenia"): "Images_from_Wiki_Loves_Earth_2023_in_Armenia",
+    ): "Images_from_Wiki_Loves_Monuments_2017_in_Armenia_&_Nagorno-Karabakh",
+    ("Earth", "2014", "Armenia"): "Images_from_Wiki_Loves_Earth_2014_in_Armenia_&_Nagorno-Karabakh",
     (
         "Earth",
         "2021",
