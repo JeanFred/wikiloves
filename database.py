@@ -3,6 +3,7 @@
 
 import io
 import json
+import shutil
 import time
 
 from commons_database import DB
@@ -134,8 +135,10 @@ def convert_database_record(record):
 
 
 def write_database_as_json(db):
-    with open(DATABASE_NAME, "w") as f:
+    temporary_database_name = f"{DATABASE_NAME}.new"
+    with open(temporary_database_name, "w") as f:
         json.dump(db, f)
+    shutil.copy(temporary_database_name, DATABASE_NAME)
 
 
 def update_event_data(event_slug, event_configuration, db):
