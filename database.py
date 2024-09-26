@@ -9,6 +9,8 @@ from commons_database import DB
 from configuration import getConfig
 from functions import get_wikiloves_category_name
 
+DATABASE_NAME = "db.json"
+
 updateLog = []
 
 dbquery = """SELECT
@@ -132,7 +134,7 @@ def convert_database_record(record):
 
 
 def write_database_as_json(db):
-    with open("db.json", "w") as f:
+    with open(DATABASE_NAME, "w") as f:
         json.dump(db, f)
 
 
@@ -165,10 +167,10 @@ if __name__ == "__main__":
     print("Fetching configuration...")
     config = getConfig("Module:WL_data")
     try:
-        with open("db.json", "r") as f:
+        with open(DATABASE_NAME, "r") as f:
             db = json.load(f)
     except Exception as e:
-        print("Erro ao abrir db.json:", repr(e))
+        print(f"Erro ao abrir {DATABASE_NAME}:", repr(e))
         db = {}
     print("Found %s events in the configuration." % len(config))
 
