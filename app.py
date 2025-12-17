@@ -10,6 +10,7 @@ from flask import Flask, make_response, render_template, request
 
 import data_store
 import images
+from api import api
 from functions import (
     get_country_summary,
     get_edition_data,
@@ -22,6 +23,7 @@ from functions import (
 )
 
 app = Flask(__name__)
+app.register_blueprint(api)
 app.debug = True
 
 data_store.loadDB()
