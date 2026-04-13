@@ -134,7 +134,6 @@ catExceptions = {
     "Central African Republic": "the_Central_African_Republic",
     "Comoros": "the_Comoros",
     "Czech Republic": "the_Czech_Republic",
-    "Côte d'Ivoire": "",
     "Democratic Republic of the Congo": "the_Democratic_Republic_of_the_Congo",
     "Republic of the Congo": "the_Republic_of_the_Congo",
     "Dutch Caribbean": "the_Dutch_Caribbean",
@@ -245,4 +244,64 @@ special_exceptions = {
         "2011", 
         "Estonia"
     ): "Images_from_Teadusfoto_2011",
+    (
+        "Africa",
+        "2014",
+        "Côte d'Ivoire"
+    ): "Images_from_Wiki_Loves_Africa_2014_in_Ivory_Coast",
+    (
+        "Africa",
+        "2015",
+        "Côte d'Ivoire"
+    ): "Images_from_Wiki_Loves_Africa_2015_in_Ivory_Coast",
+    (
+        "Africa",
+        "2016",
+        "Côte d'Ivoire"
+    ): "Images_from_Wiki_Loves_Africa_2016_in_Ivory_Coast",
+    (
+        "Africa",
+        "2017",
+        "Côte d'Ivoire"
+    ): "Images_from_Wiki_Loves_Africa_2017_in_Ivory_Coast",
+    (
+        "Africa",
+        "2019",
+        "Côte d'Ivoire"
+    ): "Images_from_Wiki_Loves_Africa_2019_in_Ivory_Coast",
+    (
+        "Africa",
+        "2020",
+        "Côte d'Ivoire"
+    ): "Images_from_Wiki_Loves_Africa_2020_in_Ivory_Coast",
+    (
+        "Africa",
+        "2021",
+        "Côte d'Ivoire"
+    ): "Images_from_Wiki_Loves_Africa_2021_in_Ivory_Coast",
+    (
+        "Africa",
+        "2022",
+        "Côte d'Ivoire"
+    ): "Images_from_Wiki_Loves_Africa_2022_in_Ivory_Coast",
+    (
+        "Africa",
+        "2020",
+        "Côte d'Ivoire"
+    ): "Images_from_Wiki_Loves_Africa_2020_in_Ivory_Coast",
+    (
+        "Africa",
+        "2023",
+        "Côte d'Ivoire"
+    ): "Images_from_Wiki_Loves_Africa_2023_in_Ivory_Coast",
+    (
+        "Africa",
+        "2024",
+        "Côte d'Ivoire"
+    ): "Images_from_Wiki_Loves_Africa_2024_in_Ivory_Coast",
+    (
+        "Africa",
+        "2025",
+        "Côte d'Ivoire"
+    ): "Images_from_Wiki_Loves_Africa_2025_in_Ivory_Coast",
 }
