@@ -304,4 +304,9 @@ special_exceptions = {
         "2025",
         "Côte d'Ivoire"
     ): "Images_from_Wiki_Loves_Africa_2025_in_Ivory_Coast",
+    (
+        "Africa",
+        "2026",
+        "Côte d'Ivoire"
+    ): "Images_from_Wiki_Loves_Africa_2026_in_Ivory_Coast",
 }
