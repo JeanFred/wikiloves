@@ -1,5 +1,4 @@
-# -*- coding: utf-8  -*-
-
+# -*- coding: utf-8 -*-
 
 EVENTS = [
     "earth",
@@ -9,6 +8,10 @@ EVENTS = [
     "science",
     "food",
     "folklore",
+    "ramadan",
+    "culture",
+    "fashion",
+    "onam",
 ]
 
 
