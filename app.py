@@ -1,5 +1,5 @@
 #!/usr/bin/python
-# -*- coding: utf-8  -*-
+# -*- coding: utf-8 -*-
 
 import json
 import os
@@ -73,6 +73,10 @@ def logpage():
 @app.route("/science", defaults={"scope": "science"})
 @app.route("/food", defaults={"scope": "food"})
 @app.route("/folklore", defaults={"scope": "folklore"})
+@app.route("/ramadan", defaults={"scope": "ramadan"})
+@app.route("/culture", defaults={"scope": "culture"})
+@app.route("/fashion", defaults={"scope": "fashion"})
+@app.route("/onam", defaults={"scope": "onam"})
 def event_main(scope):
     if not data_store.db:
         return index()
