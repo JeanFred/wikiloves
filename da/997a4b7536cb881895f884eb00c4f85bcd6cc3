@@ -1,0 +1,14 @@
+functions.py
+  h_8dc201cfa4a3f0 202-203
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "da997a4b7536cb881895f884eb00c4f85bcd6cc3",
+  "prompts": {},
+  "humans": {
+    "h_8dc201cfa4a3f0": {
+      "author": "Jean-Frederic <JeanFred@users.noreply.github.com>"
+    }
+  }
+}
