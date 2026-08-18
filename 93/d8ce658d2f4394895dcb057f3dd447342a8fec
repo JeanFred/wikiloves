@@ -1,0 +1,20 @@
+functions.py
+  h_8dc201cfa4a3f0 1,11
+templates/contest_logo.html
+  h_8dc201cfa4a3f0 16-17
+app.py
+  h_8dc201cfa4a3f0 2,76
+templates/mainpage.html
+  h_8dc201cfa4a3f0 30
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "93d8ce658d2f4394895dcb057f3dd447342a8fec",
+  "prompts": {},
+  "humans": {
+    "h_8dc201cfa4a3f0": {
+      "author": "Jean-Frederic <JeanFred@users.noreply.github.com>"
+    }
+  }
+}
