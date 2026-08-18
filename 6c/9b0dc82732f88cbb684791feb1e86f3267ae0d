@@ -1,0 +1,14 @@
+templates/contest_logo.html
+  h_8dc201cfa4a3f0 1-19
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "6c9b0dc82732f88cbb684791feb1e86f3267ae0d",
+  "prompts": {},
+  "humans": {
+    "h_8dc201cfa4a3f0": {
+      "author": "Jean-Frederic <JeanFred@users.noreply.github.com>"
+    }
+  }
+}
