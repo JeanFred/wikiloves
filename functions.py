@@ -199,6 +199,8 @@ special_exceptions = {
         "2017",
         "Armenia",
     ): "Images_from_Wiki_Loves_Monuments_2017_in_Armenia_&_Nagorno-Karabakh",
+    ("Earth", "2023", "Ivory Coast"): "Images_from_Wiki_Loves_Earth_2023_in_Côte_d'Ivoire",
+    ("Earth", "2026", "Ivory Coast"): "Images_from_Wiki_Loves_Earth_2026_in_Côte_d'Ivoire",
     ("Earth", "2014", "Armenia"): "Images_from_Wiki_Loves_Earth_2014_in_Armenia_&_Nagorno-Karabakh",
     (
         "Earth",
