@@ -239,5 +239,30 @@
       },
       "usercount": 1
     }
+  },
+  "ramadan2026": {
+    "Nigeria": {
+      "count": 9,
+      "category": "Images_from_Wiki_Loves_Ramadan_2026_in_Nigeria",
+      "end": 20260328155959,
+      "users": {
+        "Foo": {
+          "count": 5,
+          "usage": 0,
+          "reg": 20260215160000
+        }
+      },
+      "start": 20260215160000,
+      "userreg": 0,
+      "usage": 0,
+      "data": {
+        "20260215": {
+          "images": 5,
+          "joiners": 1,
+          "newbie_joiners": 1
+        }
+      },
+      "usercount": 1
+    }
   }
 }
