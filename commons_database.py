@@ -12,7 +12,17 @@ class DB:
     Classe para fazer consultas ao banco de dados
     """
 
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        self.close_connection()
+
     def connect(self):
+        # Close any existing connection before opening a new one, so that
+        # reconnection attempts do not leak connections (max_user_connections).
+        self.close_connection()
+
         username = os.environ.get("DB_USERNAME", None)
         password = os.environ.get("DB_PASSWORD", None)
         host = os.environ.get("DB_HOST", "commonswiki.analytics.db.svc.eqiad.wmflabs")
@@ -37,9 +47,10 @@ class DB:
         """
         Tenta fazer a consulta, reconecta até 10 vezes até conseguir
         """
-        loops = 0
-        if not hasattr(self, 'conn'):
+        if not getattr(self, "conn", None):
             self.connect()
+
+        loops = 0
         while True:
             try:
                 return self._query(*sql)
@@ -50,13 +61,13 @@ class DB:
                     time.sleep(loops)
                     self.connect()
                 else:
-                    return self._query(*sql)
-                    break
-            else:
-                print("Uncaught exception when running query")
-                print(sql)
-                break
-        self.close_connection()
+                    raise
 
     def close_connection(self):
-        self.conn.close()
+        conn = getattr(self, "conn", None)
+        if conn is not None:
+            try:
+                conn.close()
+            except Exception:
+                pass
+            self.conn = None

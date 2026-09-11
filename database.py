@@ -179,23 +179,24 @@ if __name__ == "__main__":
 
     commonsdb = DB()
 
-    if args.events:
-        print(
-            "Updating only %s event(s): %s."
-            % (len(args.events), ", ".join(args.events))
-        )
-        for event_name in args.events:
-            event_configuration = config.get(event_name)
-            if event_configuration:
+    with commonsdb:
+        if args.events:
+            print(
+                "Updating only %s event(s): %s."
+                % (len(args.events), ", ".join(args.events))
+            )
+            for event_name in args.events:
+                event_configuration = config.get(event_name)
+                if event_configuration:
+                    print("Fetching data for %s..." % event_name)
+                    db = update_event_data(event_name, event_configuration, db)
+                else:
+                    print("Invalid event: %s" % event_name)
+        else:
+            print("Updating all %s events." % len(config))
+            for event_name, event_configuration in config.items():
                 print("Fetching data for %s..." % event_name)
                 db = update_event_data(event_name, event_configuration, db)
-            else:
-                print("Invalid event: %s" % event_name)
-    else:
-        print("Updating all %s events." % len(config))
-        for event_name, event_configuration in config.items():
-            print("Fetching data for %s..." % event_name)
-            db = update_event_data(event_name, event_configuration, db)
 
     if updateLog:
         with io.open("update.log", "w", encoding="utf-8") as f:
