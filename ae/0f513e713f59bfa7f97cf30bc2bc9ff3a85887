@@ -1,0 +1,16 @@
+database.py
+  h_8dc201cfa4a3f0 182-197
+commons_database.py
+  h_8dc201cfa4a3f0 15-20,22-25,48,50,52-53,64,67-73
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "ae0f513e713f59bfa7f97cf30bc2bc9ff3a85887",
+  "prompts": {},
+  "humans": {
+    "h_8dc201cfa4a3f0": {
+      "author": "Jean-Frederic <JeanFred@users.noreply.github.com>"
+    }
+  }
+}
