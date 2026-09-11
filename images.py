@@ -65,8 +65,8 @@ def get(args):
     sql = makeQuery(args)
     if not sql:
         return
-    commonsdb = DB()
-    data = commonsdb.query(*sql)
+    with DB() as commonsdb:
+        data = commonsdb.query(*sql)
     return [
         (i[0].decode("utf-8"), i[1], int(i[2]), int(i[3]), i[4], i[5], i[6])
         for i in data
