@@ -52,7 +52,7 @@ def makeQuery(args):
  INNER JOIN page ON cl_from = page_id
  INNER JOIN image ON page_title = img_name
  INNER JOIN actor_image ON actor_image.actor_id = image.img_actor
- WHERE cl_to = %s AND cl_type = 'file' AND img_major_mime = 'image'{user}{timestamp}{mb}{mp}
+ WHERE cl_target_id = (SELECT lt_id FROM linktarget WHERE lt_title = %s AND lt_namespace = 14) AND cl_type = 'file' AND img_major_mime = 'image'{user}{timestamp}{mb}{mp}
  ORDER BY pixels DESC
  LIMIT 201{start}""".format(
             **params
