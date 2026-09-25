@@ -1,0 +1,14 @@
+images.py
+  h_8dc201cfa4a3f0 7-31,36-38,70,72,82,84-93,95
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "d846ed730d4fb4a168d8747e2177bb083bd7905a",
+  "prompts": {},
+  "humans": {
+    "h_8dc201cfa4a3f0": {
+      "author": "Jean-Frederic <JeanFred@users.noreply.github.com>"
+    }
+  }
+}
