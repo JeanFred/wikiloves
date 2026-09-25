@@ -16,6 +16,57 @@ class TestConvertDatabaseRecord(unittest.TestCase):
         self.assertEqual(result, expected)
 
 
+class TestGetDataForCategory(unittest.TestCase):
+    """The split-query Python join is the new, bug-prone core; pin it down."""
+
+    def setUp(self):
+        self.linksdb = mock.Mock()
+        self.commonsdb = mock.Mock()
+        patchers = [
+            mock.patch.object(database, "linksdb", self.linksdb, create=True),
+            mock.patch.object(database, "commonsdb", self.commonsdb, create=True),
+        ]
+        for p in patchers:
+            p.start()
+            self.addCleanup(p.stop)
+
+    def test_join_and_usage_membership(self):
+        # Driver returns bytes; the join must still match against the in-use
+        # flag from the merged links query (page_title, in_use).
+        self.linksdb.query.return_value = [
+            (b"A.jpg", 1),
+            (b"B.jpg", 0),
+            (b"C.jpg", 1),
+        ]
+        self.commonsdb.query.return_value = [
+            (b"A.jpg", "20140523121626", b"Alice", "20130101000000"),
+            (b"B.jpg", "20140524121626", b"Bob", "20140101000000"),
+            (b"C.jpg", "20140525121626", b"Carol", "20140201000000"),
+        ]
+
+        result = database.get_data_for_category("Some_category")
+
+        # A and C are in use; B is not.
+        self.assertEqual(
+            result,
+            (
+                (20140523121626, True, b"Alice", 20130101000000),
+                (20140524121626, False, b"Bob", 20140101000000),
+                (20140525121626, True, b"Carol", 20140201000000),
+            ),
+        )
+        # A single links query now returns both titles and usage.
+        self.assertEqual(self.linksdb.query.call_count, 1)
+
+    def test_empty_category_short_circuits(self):
+        self.linksdb.query.return_value = []
+        result = database.get_data_for_category("Empty_category")
+        self.assertEqual(result, ())
+        # No usage or metadata queries when there are no titles.
+        self.assertEqual(self.linksdb.query.call_count, 1)
+        self.commonsdb.query.assert_not_called()
+
+
 class TestGetDataMixin(unittest.TestCase):
     def setUp(self):
         patcher = mock.patch("database.get_data_for_category", autospec=True)

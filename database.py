@@ -6,7 +6,7 @@ import json
 import shutil
 import time
 
-from commons_database import DB
+from commons_database import DB, TITLE_CHUNK_SIZE, as_text, chunked
 from configuration import getConfig
 from functions import get_wikiloves_category_name
 
@@ -14,21 +14,32 @@ DATABASE_NAME = "db.json"
 
 updateLog = []
 
-dbquery = """SELECT
+# Query for the links (x4) cluster: resolve a category to the titles of the
+# files it contains, together with whether each file is in use anywhere
+# (globalimagelinks). ``categorylinks``/``linktarget``/``globalimagelinks``
+# live on the links cluster; ``page`` exists on both. A correlated EXISTS
+# avoids the fan-out (one globalimagelinks row per usage per wiki) that a JOIN
+# would produce, matching the old `IN (SELECT DISTINCT gil_to ...)` semantics.
+category_query = """SELECT page_title,
+   EXISTS (SELECT 1 FROM globalimagelinks WHERE gil_to = page_title) AS in_use
+ FROM categorylinks
+ INNER JOIN page ON cl_from = page_id
+ WHERE cl_type = 'file'
+   AND cl_target_id = (SELECT lt_id FROM linktarget WHERE lt_title = %s AND lt_namespace = 14)
+"""
+
+# Query for the core (s4) cluster: image/actor/user metadata for the given file
+# titles. First-uploader is resolved via the oldest oldimage revision.
+metadata_query = """SELECT
+ img_name,
  img_timestamp,
- img_name IN (SELECT DISTINCT gil_to FROM globalimagelinks) AS image_in_use,
  COALESCE(user.user_name, actor.actor_id) as name,
  COALESCE(user_registration, "20050101000000") as user_registration
- FROM (SELECT
-   cl_from
-   FROM categorylinks
-   WHERE cl_type = 'file'
-     AND cl_target_id = (SELECT lt_id FROM linktarget WHERE lt_title = %s AND lt_namespace = 14)) cats
- INNER JOIN page ON cl_from = page_id
- INNER JOIN image ON page_title = img_name
+ FROM image
  LEFT JOIN oldimage ON image.img_name = oldimage.oi_name AND oldimage.oi_timestamp = (SELECT MIN(o.oi_timestamp) FROM oldimage o WHERE o.oi_name = image.img_name)
  LEFT JOIN actor ON actor.actor_id = COALESCE(oldimage.oi_actor, image.img_actor)
  LEFT JOIN user ON user.user_id = actor.actor_user
+ WHERE img_name IN ({titles})
 """
 
 
@@ -119,14 +130,39 @@ def get_country_data(category, start_time, end_time):
 
 
 def get_data_for_category(category_name):
-    """Query the database for a given category
+    """Query the database for a given category.
+
+    The links tables live on the x4 cluster and can no longer be JOINed
+    against the core tables, so the lookup is split across two connections and
+    joined in code.
 
     Return: Tuple of tuples (<timestamp>, <in use>, <User>, <registration>)
     (20140529121626, False, u'Example', 20140528235032)
     """
-    query_data = commonsdb.query(dbquery, (category_name,))
-    dbData = tuple(convert_database_record(record) for record in query_data)
-    return dbData
+    # Step 1 (links cluster): resolve the category to file titles, each with
+    # its in-use flag (globalimagelinks) in the same query.
+    category_rows = linksdb.query(category_query, (category_name,))
+    if not category_rows:
+        return ()
+    titles = [as_text(title) for title, _ in category_rows]
+    in_use = {as_text(title) for title, used in category_rows if used}
+
+    # Step 2 (core cluster): image/actor/user metadata for those titles,
+    # chunked so large categories stay under the statement-size limit. Titles
+    # are normalized to str so the membership test below is type-safe.
+    metadata = []
+    for batch in chunked(titles, TITLE_CHUNK_SIZE):
+        placeholders = ", ".join(["%s"] * len(batch))
+        metadata_sql = metadata_query.format(titles=placeholders)
+        metadata += commonsdb.query(metadata_sql, tuple(batch))
+
+    # Join in code: usage is membership of img_name in the in-use set.
+    return tuple(
+        convert_database_record(
+            (timestamp, as_text(img_name) in in_use, user, user_reg)
+        )
+        for (img_name, timestamp, user, user_reg) in metadata
+    )
 
 
 def convert_database_record(record):
@@ -178,8 +214,9 @@ if __name__ == "__main__":
     print("Found %s events in the configuration." % len(config))
 
     commonsdb = DB()
+    linksdb = DB(links=True)
 
-    with commonsdb:
+    with commonsdb, linksdb:
         if args.events:
             print(
                 "Updating only %s event(s): %s."
