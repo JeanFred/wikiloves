@@ -7,10 +7,43 @@ import time
 import pymysql
 
 
+# Cap on how many titles go into a single IN (...) clause, to stay well under
+# the server's statement-size limit for very large categories.
+TITLE_CHUNK_SIZE = 5000
+
+
+def as_text(value):
+    """Normalize a DB value (bytes or str) to str for cross-cluster joins."""
+    return value.decode("utf-8") if isinstance(value, bytes) else value
+
+
+def chunked(seq, size):
+    """Yield successive ``size``-length slices of ``seq``."""
+    for i in range(0, len(seq), size):
+        yield seq[i : i + size]
+
+
+# Default hostnames for the two Commons wiki replica clusters.
+# As of the 2026 Commons links tables database split, the links tables
+# (categorylinks, linktarget, globalimagelinks, pagelinks, ...) live on a
+# separate `x4` cluster reachable via a dedicated `links.` hostname, and can
+# no longer be JOINed against the core (`s4`) tables (image, actor, user, ...).
+# See https://wikitech.wikimedia.org/wiki/News/2026_Commons_links_tables_database_split
+DEFAULT_CORE_HOST = "commonswiki.analytics.db.svc.eqiad.wmflabs"
+DEFAULT_LINKS_HOST = "links.commonswiki.analytics.db.svc.wikimedia.cloud"
+
+
 class DB:
     """
     Classe para fazer consultas ao banco de dados
+
+    ``links=True`` connects to the `x4` links cluster (categorylinks,
+    linktarget, globalimagelinks, ...); the default connects to the core
+    cluster (image, actor, user, page, ...).
     """
+
+    def __init__(self, links=False):
+        self.links = links
 
     def __enter__(self):
         return self
@@ -25,7 +58,10 @@ class DB:
 
         username = os.environ.get("DB_USERNAME", None)
         password = os.environ.get("DB_PASSWORD", None)
-        host = os.environ.get("DB_HOST", "commonswiki.analytics.db.svc.eqiad.wmflabs")
+        if self.links:
+            host = os.environ.get("DB_LINKS_HOST", DEFAULT_LINKS_HOST)
+        else:
+            host = os.environ.get("DB_HOST", DEFAULT_CORE_HOST)
         self.conn = pymysql.connect(
             db="commonswiki_p",
             host=host,
