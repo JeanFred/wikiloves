@@ -1,0 +1,24 @@
+database.py
+  h_8dc201cfa4a3f0 9,17-19,17,18-19,20-24,25-26,27-28,29-34,38,42,133-137,133-134,135-137,142-165,142-145,146,147-148,149,150-152,153,154-155,156-159,160-165,217,219
+tests/test_database.py
+  h_8dc201cfa4a3f0 19-69,19-33,34-39,40-57,58-59,60-69
+commons_database.py
+  h_8dc201cfa4a3f0 10-19,23-26,29-31,32,45-47
+  h_8dc201cfa4a3f0 20-22,27-28,33-35,39-42,61-64
+images.py
+  h_8dc201cfa4a3f0 9-18,20-23,81,83-90
+  h_8dc201cfa4a3f0 3,6-7,24-28,30-32,54,64,66,68,76,78-80,82,91-94,96-99,101-102
+tests/test_images.py
+  h_8dc201cfa4a3f0 1-65
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "ce5da974565e85c4ee19e7eda62d17d0f00af137",
+  "prompts": {},
+  "humans": {
+    "h_8dc201cfa4a3f0": {
+      "author": "Jean-Frederic <JeanFred@users.noreply.github.com>"
+    }
+  }
+}
