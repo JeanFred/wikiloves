@@ -1,0 +1,14 @@
+database.py
+  h_8dc201cfa4a3f0 20-24
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "d8cbd70ac518235d6680b4476e5ecfbab707cd10",
+  "prompts": {},
+  "humans": {
+    "h_8dc201cfa4a3f0": {
+      "author": "Jean-Frederic <JeanFred@users.noreply.github.com>"
+    }
+  }
+}
