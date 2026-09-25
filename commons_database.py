@@ -29,7 +29,7 @@ def chunked(seq, size):
 # separate `x4` cluster reachable via a dedicated `links.` hostname, and can
 # no longer be JOINed against the core (`s4`) tables (image, actor, user, ...).
 # See https://wikitech.wikimedia.org/wiki/News/2026_Commons_links_tables_database_split
-DEFAULT_CORE_HOST = "commonswiki.analytics.db.svc.eqiad.wmflabs"
+DEFAULT_CORE_HOST = "commonswiki.analytics.db.svc.wikimedia.cloud"
 DEFAULT_LINKS_HOST = "links.commonswiki.analytics.db.svc.wikimedia.cloud"
 
 
